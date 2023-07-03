@@ -13,7 +13,7 @@ def check_win(board,dimensao):
 
 from collections import deque
 
-def resolver_jogo_dos_8(board, dimensao):
+def resolver_backtracking(board, dimensao):
     queue = deque([(board, [])])  # Fila de estados a serem explorados
     visited_states = set()  # Conjunto de estados visitados
 
