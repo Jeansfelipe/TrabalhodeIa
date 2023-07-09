@@ -1,19 +1,9 @@
 from collections import deque
-from jogo_dos_8 import print_board, move
-
-# Função para verificar se o jogador venceu
-def check_win(board,dimensao):
-    count = 1
-    for i in range(dimensao):
-        for j in range(dimensao):
-            if board[i][j] != count % (dimensao * dimensao):
-                return False
-            count += 1
-    return True
+from jogo_dos_8 import print_board, move, check_win
 
 from collections import deque
 
-def resolver_backtracking(board, dimensao):
+def resolver_backtracking(board):
     queue = deque([(board, [])])  # Fila de estados a serem explorados
     visited_states = set()  # Conjunto de estados visitados
 
@@ -21,9 +11,9 @@ def resolver_backtracking(board, dimensao):
         current_board, path = queue.popleft()
 
         # Verificar se o jogo está resolvido
-        if check_win(current_board, dimensao):
+        if check_win(current_board):
             print("Solução encontrada:")
-            print_board(current_board, dimensao)
+            print_board(current_board)
             print("Caminho percorrido:")
             print(" -> ".join(path))
             return True
@@ -42,7 +32,7 @@ def resolver_backtracking(board, dimensao):
             new_board = [row[:] for row in current_board]  # Fazer uma cópia do tabuleiro
 
             # Executar o movimento
-            move(new_board, movement, dimensao)
+            move(new_board, movement)
 
             queue.append((new_board, path + [movement]))
 
