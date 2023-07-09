@@ -1,5 +1,7 @@
 from jogo_dos_8 import cria_jogo_dos_8, print_board
 from backtracking import resolver_backtracking
+from largura import resolver_largura
+from profundidade import resolver_profundidade
 import time
 import sys
 
@@ -34,18 +36,18 @@ match algoritmo:
         inicio = time.time() # Tempo de inicio
         resolver_backtracking(board)
         fim = time.time() # Tempo de fim do algoritmo
-        print(str(round((fim-inicio), 3)) + "Segundos")
+        print(str(round((fim-inicio), 3)) + "s")
     case 2:
         inicio = time.time()
-        #busca em largura
-        print("largura")
+        resolver_largura(board)
         fim = time.time()
+        print(str(round((fim-inicio), 3)) + "s")
 
     case 3:
-         inicio = time.time()
-        #busca em profundidade
-         print("profundidade")
-         fim = time.time()
+        inicio = time.time() # Tempo de inicio
+        resolver_profundidade(board)
+        fim = time.time() # Tempo de fim do algoritmo
+        print(str(round((fim-inicio), 3)) + "s")
 
     case 4:
         inicio = time.time()
