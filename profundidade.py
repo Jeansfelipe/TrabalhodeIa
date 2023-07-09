@@ -1,7 +1,7 @@
 from jogo_dos_8 import print_board, move, check_win
 
 
-def resolver_profundidade(board):
+def resolver_profundidade(board, max_depth):
     closed_set = set(map(tuple, board))  # Evita estados duplicados
     stack = [(board, [])]
 
@@ -17,6 +17,9 @@ def resolver_profundidade(board):
             print("Nós visitados:", len(closed_set))
             return True
 
+        if len(path) >= max_depth:
+            continue  # Limite de profundidade atingido, pular para a próxima iteração
+
         moves = ['W', 'S', 'A', 'D']
 
         for movement in moves:
@@ -27,5 +30,4 @@ def resolver_profundidade(board):
             if new_board_tuple not in closed_set:
                 closed_set.add(new_board_tuple)
                 stack.append((new_board, path + [movement]))
-
     return False

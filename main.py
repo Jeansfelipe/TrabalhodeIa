@@ -8,14 +8,15 @@ import sys
 
 sys.setrecursionlimit(1000)
 
-#Inicializando a dimensao da matriz do board
+# Inicializando a dimensao da matriz do board
 tamanho = int(input("Informe o numero de linhas do jogo que deseja montar: "))
-dimensao = int(input("Informe o numero de colunas do jogo que deseja montar: "))
+dimensao = int(
+    input("Informe o numero de colunas do jogo que deseja montar: "))
 # Criar um jogo dos 8 embaralhado
-board = cria_jogo_dos_8(tamanho,dimensao)
+board = cria_jogo_dos_8(tamanho, dimensao)
 
 
-#Escolhe algoritmo
+# Escolhe algoritmo
 print("1 - Backtracking")
 print("2 - Busca em Largura")
 print("3 - Busca em Profundidade")
@@ -33,9 +34,9 @@ print_board(board)
 
 match algoritmo:
     case 1:
-        inicio = time.time() # Tempo de inicio
+        inicio = time.time()  # Tempo de inicio
         resolver_backtracking(board)
-        fim = time.time() # Tempo de fim do algoritmo
+        fim = time.time()  # Tempo de fim do algoritmo
         print(str(round((fim-inicio), 3)) + "s")
     case 2:
         inicio = time.time()
@@ -44,31 +45,36 @@ match algoritmo:
         print(str(round((fim-inicio), 3)) + "s")
 
     case 3:
-        inicio = time.time() # Tempo de inicio
-        resolver_profundidade(board)
-        fim = time.time() # Tempo de fim do algoritmo
-        print(str(round((fim-inicio), 3)) + "s")
+        max_depth = int(input("Digite qual a profundidade maxima que o codigo pode chegar: "))
+        inicio = time.time()  # Tempo de inicio
+        solucao = resolver_profundidade(board, max_depth)
+        fim = time.time()  # Tempo de fim do algoritmo
+        if not solucao:
+            print("Nao foi encontrada uma solucao com a profundidade maxima de " + str(max_depth))
+            print("Tente com uma profundidade de "+ (str(max_depth + 5 )))
+        else:
+            print(str(round((fim-inicio), 3)) + "s")
 
     case 4:
         inicio = time.time()
-        #busca ordenada
+        # busca ordenada
         print("ordenada")
         fim = time.time()
 
     case 5:
         inicio = time.time()
-        #busca gulosa
+        # busca gulosa
         print("gulosa")
         fim = time.time()
 
     case 6:
         inicio = time.time()
-        #busca A*
+        # busca A*
         print("A*")
         fim = time.time()
 
     case 7:
         inicio = time.time()
-        #busca IDA*
+        # busca IDA*
         print("IDA*")
         fim = time.time()
