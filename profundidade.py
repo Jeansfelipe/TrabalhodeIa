@@ -14,6 +14,7 @@ def resolver_profundidade(board, max_depth):
             print("Caminho percorrido:")
             print(" -> ".join(path))
             print("Profundidade da solução encontrada:", len(path))
+            print("Nós explorados:", len(stack) + len(closed_set))
             print("Nós visitados:", len(closed_set))
             return True
 
