@@ -1,6 +1,6 @@
 from jogo_dos_8 import print_board, move, check_win, remover_movimentos_invalidos
 
-def resolver_greed_search(board):
+def resolver_gulosa(board):
     closed_set = set(map(tuple, board))  # Evita estados duplicados
     open_list = [(board, [], count_manhattan(board))]  # Lista de abertos
 

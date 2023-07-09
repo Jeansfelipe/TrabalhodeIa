@@ -1,5 +1,5 @@
 from collections import deque
-from jogo_dos_8 import print_board, move, check_win
+from jogo_dos_8 import print_board, move, check_win, remover_movimentos_invalidos
 
 from collections import deque
 
@@ -26,8 +26,9 @@ def resolver_largura(board):
             return True
 
         moves = ['W', 'S', 'A', 'D']
+        movimentos = remover_movimentos_invalidos(moves, current_board)
 
-        for movement in moves:
+        for movement in movimentos:
             new_board = [row[:] for row in current_board]
 
             move(new_board, movement)

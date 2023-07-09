@@ -2,6 +2,9 @@ from jogo_dos_8 import cria_jogo_dos_8, print_board
 from backtracking import resolver_backtracking
 from largura import resolver_largura
 from profundidade import resolver_profundidade
+from ordenada import resolver_ordenada
+from gulosa import resolver_gulosa
+from aestrela import resolver_a_estrela
 import time
 import sys
 
@@ -57,15 +60,15 @@ match algoritmo:
 
     case 4:
         inicio = time.time()
-        # busca ordenada
-        print("ordenada")
+        resolver_ordenada(board)
         fim = time.time()
+        print(str(round((fim-inicio), 3)) + "s")
 
     case 5:
         inicio = time.time()
-        # busca gulosa
-        print("gulosa")
+        resolver_greed_search(board)
         fim = time.time()
+        print(str(round((fim-inicio), 3)) + "s")
 
     case 6:
         inicio = time.time()
