@@ -9,7 +9,7 @@ def cria_jogo_dos_8(tamanho, dimensao):
     valores = list(range(1, num_possiveis_valores)) + [0]
     board = [valores[i:i+dimensao] for i in range(0, num_possiveis_valores, dimensao)]
     moves = ['W', 'S', 'A', 'D']
-    for _ in range(50):
+    for _ in range(100):
         random_move = random.choice(moves)
         move(board, random_move)
     return board
@@ -53,3 +53,15 @@ def check_win(board):
             expected_value += 1
 
     return True
+
+def remover_movimentos_invalidos(moves, board):
+    valid_moves = []
+
+    for movement in moves:
+        new_board = [row[:] for row in board]
+        move(new_board, movement)
+
+        if new_board != board:  # Verifica se o movimento resulta em um novo estado válido
+            valid_moves.append(movement)
+
+    return valid_moves
