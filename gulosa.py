@@ -1,12 +1,12 @@
 from jogo_dos_8 import print_board, move, check_win, remover_movimentos_invalidos
 
-def resolver_ordenada(board):
+def resolver_greed_search(board):
     closed_set = set(map(tuple, board))  # Evita estados duplicados
-    open_list = [(board, [], 0)]  # Lista de abertos
+    open_list = [(board, [], count_manhattan(board))]  # Lista de abertos
 
     while open_list:
-        open_list.sort(key=lambda x: x[2])  # Ordena a lista de abertos com base no custo (distância de Manhattan)
-        current_board, path, weight = open_list.pop(0)  # Pega o estado com o menor custo
+        open_list.sort(key=lambda x: x[2])  # Ordena a lista de abertos com base no valor de f(n)
+        current_board, path, weight = open_list.pop(0)  # Pega o estado com o menor valor de f(n)
 
         if check_win(current_board):
             print("Solução encontrada:")
@@ -14,9 +14,9 @@ def resolver_ordenada(board):
             print("Caminho percorrido:")
             print(" -> ".join(path))
             print("Profundidade da solução encontrada:", len(path))
-            print("Nós expandidos:", len(open_list)+ len(closed_set))
+            print("Nós expandidos:", len(open_list) + len(closed_set))
             print("Nós visitados:", len(closed_set))
-            print("Custo do caminho: ", weight)
+
             return True
 
         moves = ['W', 'S', 'A', 'D']
@@ -29,15 +29,13 @@ def resolver_ordenada(board):
 
             if new_board_tuple not in closed_set:
                 closed_set.add(new_board_tuple)
-                somatoria  = count_manhattan(new_board)
-                open_list.append((new_board, path + [movement], somatoria + weight))
-
+                open_list.append((new_board, path + [movement], count_manhattan(new_board)))
     return False
 
 def count_manhattan(board):
     size = len(board)
     dimensao = len(board[0])
-    goal_board = create_goal_board(size,dimensao)  # Tabuleiro objetivo
+    goal_board = create_goal_board(size, dimensao)  # Tabuleiro objetivo
     manhattan = 0
 
     for i in range(size):
