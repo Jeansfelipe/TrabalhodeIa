@@ -16,6 +16,9 @@ def resolver_backtracking(board):
             print_board(current_board)
             print("Caminho percorrido:")
             print(" -> ".join(path))
+            print("Profundidade da solução encontrada:", len(path))
+            print("Nós expandidos: ", len(opened_list)+ len(closed_list))
+            print("Nós visitados: ", len(closed_list))
             return True
 
         # Verificar se o estado atual já foi visitado
