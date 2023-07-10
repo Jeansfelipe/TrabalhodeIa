@@ -1,7 +1,5 @@
 from collections import deque
-from jogo_dos_8 import print_board, move, check_win
-
-from collections import deque
+from jogo_dos_8 import print_board, move, check_win, remover_movimentos_invalidos
 
 def resolver_backtracking(board):
     queue = deque([(board, [])])  # Fila de estados a serem explorados
@@ -17,8 +15,8 @@ def resolver_backtracking(board):
             print("Caminho percorrido:")
             print(" -> ".join(path))
             print("Profundidade da solução encontrada:", len(path))
-            print("Nós expandidos: ", len(opened_list)+ len(closed_list))
-            print("Nós visitados: ", len(closed_list))
+            print("Nós expandidos: ", len(queue)+ len(visited_states))
+            print("Nós visitados: ", len(visited_states))
             return True
 
         # Verificar se o estado atual já foi visitado
@@ -29,9 +27,10 @@ def resolver_backtracking(board):
 
         # Movimentos possíveis: W, S, A, D (cima, baixo, esquerda, direita)
         moves = ['W', 'S', 'A', 'D']
+        movimentos = remover_movimentos_invalidos(moves, current_board)
 
         # Tentar cada movimento
-        for movement in moves:
+        for movement in movimentos:
             new_board = [row[:] for row in current_board]  # Fazer uma cópia do tabuleiro
 
             # Executar o movimento

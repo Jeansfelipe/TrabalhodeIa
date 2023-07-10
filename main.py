@@ -67,7 +67,7 @@ match algoritmo:
 
     case 5:
         inicio = time.time()
-        resolver_greed_search(board)
+        resolver_gulosa(board)
         fim = time.time()
         print(str(round((fim-inicio), 3)) + "s")
 
