@@ -5,6 +5,7 @@ from profundidade import resolver_profundidade
 from ordenada import resolver_ordenada
 from gulosa import resolver_gulosa
 from aestrela import resolver_a_estrela
+#from idaestrela import resolver_ida_estrela
 import time
 import sys
 
@@ -72,9 +73,9 @@ match algoritmo:
 
     case 6:
         inicio = time.time()
-        # busca A*
-        print("A*")
+        resolver_a_estrela(board)
         fim = time.time()
+        print(str(round((fim-inicio), 3)) + "s")
 
     case 7:
         inicio = time.time()
