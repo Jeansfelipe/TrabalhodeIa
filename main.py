@@ -1,4 +1,4 @@
-from jogo_dos_8 import cria_jogo_dos_8, print_board
+from jogo_dos_8 import cria_jogo_dos_8, print_board, gera_tabuleiro_parametro
 from backtracking import resolver_backtracking
 from largura import resolver_largura
 from profundidade import resolver_profundidade
@@ -16,9 +16,13 @@ sys.setrecursionlimit(1000)
 tamanho = int(input("Informe o numero de linhas do jogo que deseja montar: "))
 dimensao = int(
     input("Informe o numero de colunas do jogo que deseja montar: "))
-# Criar um jogo dos 8 embaralhado
-board = cria_jogo_dos_8(tamanho, dimensao)
 
+random = int(input("Deseja gerar um tabuleiro aleatorio? (1 - Sim, 2 - Nao) "))
+if(random == 1):
+    board = cria_jogo_dos_8(tamanho, dimensao)
+else:
+    board = gera_tabuleiro_parametro(tamanho, dimensao)
+# Criar um jogo dos 8 embaralhado
 
 # Escolhe algoritmo
 print("1 - Backtracking")

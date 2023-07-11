@@ -14,6 +14,38 @@ def cria_jogo_dos_8(tamanho, dimensao):
         move(board, random_move)
     return board
 
+def gera_tabuleiro_parametro(tamanho, dimensao):
+    board = []
+    for i in range(0, tamanho):
+        linha = []
+        for j in range(0, dimensao):
+            valor = int(input("Digite o valor da coluna "+ str(i) + " e da linha " + str(j) + ": "))
+            linha.append(valor)
+        board.append(linha)
+
+    if(verifica_tabuleiro(board)):
+        return board
+    else:
+        print("Tabuleiro inválido. Refaça os valores")
+        board = gera_tabuleiro_parametro(tamanho, dimensao)  
+        return board       
+    
+# Função para verificar se existe o 0 no tabuleiro
+def verifica_tabuleiro(board):
+    valores = []
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            #Verifica se não há valores repetidos na lista
+            if board[i][j] in valores:
+                return False
+            else:
+                valores.append(board[i][j])
+    #Verifica se há pelo menos 1 zero na lista
+    if 0 in valores:
+        return True
+    else:
+        return False
+
 # Função para trocar as posições das peças
 def move(board, move):
     # Encontra a posição do elemento vazio
