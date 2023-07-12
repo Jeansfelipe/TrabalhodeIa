@@ -17,6 +17,7 @@ def resolver_a_estrela(board):
             print_board(current_board)
             print("Caminho percorrido:")
             print(" -> ".join(path))
+            print("Profundidade da solução encontrada:", len(path))
             print("Nós expandidos:", len(queue)+ len(visited_states))
             print("Nós visitados:", len(visited_states))
             print("Custo do caminho: ", weight)

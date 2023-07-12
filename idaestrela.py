@@ -7,21 +7,31 @@ def resolver_ida_estrela(board):
     visited_states = set()  # Conjunto de estados visitados
     patamar = count_manhattan(board)
     descartados = []
+    expandidos = 0
+    custoTotal = 0
 
-    while queue:
-        queue.sort(key=lambda x: x[2])
-        current_board, path, weight = queue.pop(0)
-        
+    while queue or descartados:
+        if len(queue) > 0:
+            queue.sort(key=lambda x: x[2])
+            current_board, path, weight = queue.pop(0)
+
         if len(descartados) > 0:
             descartados.sort(key=lambda x: x[0])
-            patamar = descartados.pop(0)
-
+            if len(queue) == 0:
+                patamar, path, current_board = descartados.pop(0)
+            else:
+                patamar, path, board_Reserva = descartados.pop(0)
+        
         # Verificar se o jogo está resolvido
         if check_win(current_board):
             print("Solução encontrada:")
             print_board(current_board)
             print("Caminho percorrido:")
             print(" -> ".join(path))
+            print("Profundidade da solução encontrada:", len(path))
+            print("Nós expandidos:", expandidos)
+            print("Nós visitados:", len(visited_states))
+            print("Custo do caminho: ", len(path))
             return True
 
         # Verificar se o estado atual já foi visitado
@@ -38,15 +48,15 @@ def resolver_ida_estrela(board):
         # Tentar cada movimento
         for movement in movimentos:
             new_board = [row[:] for row in current_board]  # Fazer uma cópia do tabuleiro
-
+            expandidos+=1
             # Executar o movimento
             move(new_board, movement)
-            custo = out_of_place(new_board, goal_board) + count_manhattan(new_board)
+            custo = 1 + count_manhattan(new_board)
             if custo <= patamar:
                 queue.append((new_board, path + [movement], custo))
             else:
-                descartados.append(custo)
-
+                descartados.append((custo, path + [movement], new_board))
+    
     print("Não foi possível encontrar uma solução.")
     return False
 
@@ -64,14 +74,6 @@ def count_manhattan(board):
                 manhattan += abs(i - goal_pos[0]) + abs(j - goal_pos[1])
 
     return manhattan
-
-def out_of_place(board, value):
-    count = 0
-    for i in range(len(board)):
-        for j in range(len(board[0])):
-            if board[i][j] != value:
-                count = count+1
-    return count
 
 def create_goal_board(tamanho, dimensao):
     num_possiveis_valores = tamanho * dimensao
